@@ -179,9 +179,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 5vw;display:f
 .media-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9rem;margin-top:.9rem;align-items:start}
 .media-cell{min-width:0;position:relative;overflow:hidden;background:rgba(47,47,11,.2);border:1px solid rgba(140,125,86,.08)}
 .media-cell iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
-.media-cell--ig iframe{color-scheme:dark}
 .media-cell--yt{aspect-ratio:16/9}
-.media-cell--ig{aspect-ratio:37/64;background:var(--ink);color-scheme:dark;margin-inline:auto;width:100%;max-width:250px}
 
 /* FEEDBACKS */
 #feedbacks{padding:1.5rem 5vw 1.75rem;position:relative;z-index:1}
@@ -346,8 +344,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
   .id-left{position:static}
   .featured-video{padding:1rem}
   .media-row{grid-template-columns:1fr;gap:.8rem}
-  .media-cell--ig{max-width:320px}
-  #booking{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
+    #booking{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .social-grid{grid-template-columns:1fr 1fr}
 }
 </style>
@@ -537,18 +534,6 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
       </div>
       <div class="media-cell media-cell--yt">
         <iframe src="https://www.youtube.com/embed/zSBHHbRrjvM" title="Set no YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </div>
-
-    <div class="media-row">
-      <div class="media-cell media-cell--ig">
-        <iframe src="https://www.instagram.com/reel/DY42bIOB-gf/embed/captioned/" title="Aftermovie — Narnia in Trance" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
-      </div>
-      <div class="media-cell media-cell--ig">
-        <iframe src="https://www.instagram.com/reel/DbqcGaSBdXW/embed/captioned/" title="Fake drop" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
-      </div>
-      <div class="media-cell media-cell--ig">
-        <iframe src="https://www.instagram.com/reel/C8FGgf8xddh/embed/captioned/" title="Reel" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
       </div>
     </div>
   </div>
