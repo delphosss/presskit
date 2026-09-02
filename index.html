@@ -188,7 +188,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 5vw;display:f
 
 #flyers{padding:1.5rem 5vw;position:relative;z-index:1;text-align:center}
 #flyers .s-label{justify-content:center}
-.flyers-carousel{position:relative;padding-bottom:1.5rem}
+.flyers-carousel{position:relative;padding-bottom:1.5rem;overflow:hidden}
 
 /* O anel de flyers agora vale em TODAS as larguras (antes so no mobile).
    As medidas saem de variaveis, entao desktop e mobile usam a mesma
@@ -337,13 +337,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
   .hero-copy{padding:2rem 5vw 4rem}
   .hero-name{font-size:clamp(2.5rem,10vw,5rem);white-space:normal}
   .manifesto-grid{grid-template-columns:1fr}
-  .numbers-row{flex-direction:column}
-  .n-item{border-right:none;border-bottom:1px solid rgba(140,125,86,.08)}
+  .numbers-row{flex-wrap:wrap}
+  .n-item{flex:0 0 50%;border-right:1px solid rgba(140,125,86,.08);border-bottom:1px solid rgba(140,125,86,.08)}
+  .n-item:nth-child(2n){border-right:none}
+  .n-item:nth-last-child(-n+2){border-bottom:none}
   .carousel-slide,.carousel-slide.stagger{flex:0 0 82%;aspect-ratio:4/5;margin-top:0}
   #identidade{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .id-left{position:static}
   .featured-video{padding:1rem}
-  .media-row{grid-template-columns:1fr;gap:.8rem}
+  /* os 3 do YouTube ficam em miniatura embaixo do full; quem quiser
+     ver clica e abre em tela cheia no proprio player */
+  .media-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin-top:.6rem}
     #booking{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .social-grid{grid-template-columns:1fr 1fr}
 }
