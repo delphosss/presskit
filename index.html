@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DΞLPHФSS — Hiprog</title>
+<meta name="description" content="DΞLPHФSS — DJ e produtora de hiprog (progressive psytrance acelerado, 150–190 BPM) de Porto Alegre/RS. Presskit oficial: bio, fotos, sets e booking.">
+<meta name="theme-color" content="#191908">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DΞLPHФSS">
+<meta property="og:title" content="DΞLPHФSS — Hiprog">
+<meta property="og:description" content="Não sigo a maré. Crio minha própria onda. Presskit oficial — bio, fotos, sets e booking.">
+<meta property="og:url" content="https://delphosss.github.io/presskit/">
+<meta property="og:image" content="https://delphosss.github.io/presskit/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DΞLPHФSS — Hiprog">
+<meta name="twitter:description" content="Não sigo a maré. Crio minha própria onda. Presskit oficial — bio, fotos, sets e booking.">
+<meta name="twitter:image" content="https://delphosss.github.io/presskit/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -121,10 +133,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 5vw;display:f
 .galeria-header{padding:0 5vw;margin-bottom:2.5rem}
 .galeria-title{font-family:var(--f-d);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--parch);line-height:1}
 
-.carousel-track-wrap{overflow:hidden;mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%)}
-.carousel-track{display:flex;gap:12px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);padding:0 5vw}
+.carousel-track-wrap{overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 6%,black 94%,transparent 100%)}
+.carousel-track{display:flex;gap:12px;transition:transform .6s cubic-bezier(.25,.46,.45,.94);padding:0 5vw;will-change:transform}
 .carousel-slide{flex:0 0 calc(33.333% - 8px);aspect-ratio:4/5;position:relative;overflow:hidden}
-.carousel-slide:nth-child(2){aspect-ratio:3/4;margin-top:2rem}
+/* stagger is applied by JS so that cloned slides keep the same rhythm as the originals */
+.carousel-slide.stagger{aspect-ratio:3/4;margin-top:2rem}
 .slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(25,25,8,.5) 0%,transparent 50%)}
 
 .carousel-controls{display:flex;justify-content:center;gap:1rem;margin-top:2rem}
@@ -152,16 +165,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 5vw;display:f
 .sound-desc{font-size:1.1rem;line-height:1.7;color:var(--dim);font-weight:300;max-width:52ch;margin-bottom:3rem}
 .sound-desc strong{color:var(--parch);font-weight:400}
 
-.sound-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-.featured-video{background:rgba(47,47,11,.25);border:1px solid rgba(140,125,86,.15);padding:1.8rem;margin-bottom:.5rem}
-.sound-panel{background:rgba(47,47,11,.25);border:1px solid rgba(140,125,86,.1);padding:1.8rem}
-.sound-panel.wide{grid-column:1/-1}
 .embed-label{font-family:var(--f-m);font-size:.52rem;letter-spacing:.25em;color:var(--sage);text-transform:uppercase;margin-bottom:1.2rem}
-.sound-panel iframe{width:100%;border:none;display:block}
 
-.videos-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
-.video-panel{background:rgba(47,47,11,.2);border:1px solid rgba(140,125,86,.08);padding:0;overflow:hidden}
-.video-panel iframe{width:100%;height:220px;border:none;display:block}
+.featured-video{background:rgba(47,47,11,.25);border:1px solid rgba(140,125,86,.15);padding:1.8rem;margin-bottom:.5rem}
+.featured-frame{position:relative;width:100%;max-width:900px;margin-inline:auto;aspect-ratio:16/9;overflow:hidden;background:#000}
+.featured-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
+
+/* 3x2: linha de YouTube em cima, linha de reels do Instagram embaixo.
+   minmax(0,1fr) e min-width:0 impedem que a largura minima do embed
+   do Instagram estoure a grid e empurre o layout inteiro. */
+.media-lower-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2.2rem;align-items:start}
+.media-lower-grid .embed-label{grid-column:1/-1;margin:0}
+.media-lower-grid .embed-label + .embed-label,.media-lower-grid .media-cell + .embed-label{margin-top:1.2rem}
+.media-cell{min-width:0;position:relative;overflow:hidden;background:rgba(47,47,11,.2);border:1px solid rgba(140,125,86,.08)}
+.media-cell iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
+.media-cell--yt{aspect-ratio:16/9}
+.media-cell--ig{width:100%;max-width:300px;aspect-ratio:9/16;background:#000}
+/* o reel vive dentro de um figure: se o embed do Instagram nao carregar,
+   a legenda continua sendo um link direto para o post */
+.media-figure{min-width:0;margin:0;display:flex;flex-direction:column;align-items:center;gap:.55rem}
+.media-figure figcaption{font-family:var(--f-m);font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;text-align:center}
+.media-figure figcaption a{color:var(--dim);text-decoration:none;transition:color .3s}
+.media-figure figcaption a:hover{color:var(--gold)}
 
 /* FEEDBACKS */
 #feedbacks{padding:3rem 5vw;position:relative;z-index:1}
@@ -232,12 +257,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1.3rem 5vw;display:f
 @keyframes marqueeL{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 @media(max-width:768px){.fb-item{width:220px}}
 
-.fb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
-.fb-card{border:1px solid rgba(140,125,86,.12);min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;transition:border-color .3s;overflow:hidden}
-.fb-card:hover{border-color:rgba(149,41,60,.3)}
-.fb-card svg{width:28px;color:rgba(140,125,86,.3)}
-.fb-card-hint{font-family:var(--f-m);font-size:.52rem;letter-spacing:.18em;color:rgba(140,125,86,.3);text-transform:uppercase;text-align:center}
-
 /* BOOKING */
 #booking{padding:3.5rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
 .bk-left{display:flex;flex-direction:column;gap:2rem}
@@ -275,6 +294,15 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(140,125,86,.1);padd
 /* NOISE */
 body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 
+/* REDUCED MOTION — nada de marquee/parallax pra quem pediu menos movimento,
+   e o conteudo do .reveal nunca fica preso em opacity:0 */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .hero-copy{opacity:1}
+}
+
 /* MOBILE */
 @media(max-width:768px){
   nav{padding:1rem 5vw}
@@ -287,13 +315,13 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
   .manifesto-grid{grid-template-columns:1fr}
   .numbers-row{flex-direction:column}
   .n-item{border-right:none;border-bottom:1px solid rgba(140,125,86,.08)}
-  .carousel-slide{flex:0 0 82%;aspect-ratio:4/5!important;margin-top:0!important}
+  .carousel-slide,.carousel-slide.stagger{flex:0 0 82%;aspect-ratio:4/5;margin-top:0}
   #identidade{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .id-left{position:static}
-  .sound-grid{grid-template-columns:1fr}
-  .sound-panel.wide{grid-column:auto}
-  .videos-row{grid-template-columns:1fr}
-  .fb-grid{grid-template-columns:1fr}
+  .featured-video{padding:1rem}
+  .media-lower-grid{grid-template-columns:1fr}
+  .media-cell--ig{max-width:320px}
+  .media-figure{width:100%}
   #booking{grid-template-columns:1fr;gap:3rem;padding:4rem 5vw}
   .social-grid{grid-template-columns:1fr 1fr}
 }
@@ -482,19 +510,41 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
   
   <div class="featured-video reveal">
     <div class="embed-label" style="margin-bottom:1rem">Full Set em Destaque · Narnia in Trance</div>
-    <iframe width="100%" height="380" src="https://www.youtube.com/embed/RAdqCU8uGAc?si=abepU9S3QHKS4Oko" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;border:none"></iframe>
+    <div class="featured-frame">
+      <iframe src="https://www.youtube.com/embed/RAdqCU8uGAc" title="Full set — Narnia in Trance" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </div>
 
-  <div class="videos-row reveal" style="margin-top:1rem">
-    <div class="video-panel">
-      <iframe width="100%" height="200" src="https://www.youtube.com/embed/a6hI78hCXNk?si=Rhfgt_fHx0YyIGbn" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  <div class="media-lower-grid reveal">
+    <div class="embed-label">Mais sets · YouTube</div>
+    <div class="media-cell media-cell--yt">
+      <iframe src="https://www.youtube.com/embed/a6hI78hCXNk" title="Set no YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
-    <div class="video-panel">
-      <iframe width="100%" height="200" src="https://www.youtube.com/embed/v_Vke2IlVx8?si=aeUjJO-oMdDypxWJ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="media-cell media-cell--yt">
+      <iframe src="https://www.youtube.com/embed/v_Vke2IlVx8" title="Set no YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
-    <div class="video-panel">
-      <iframe width="100%" height="200" src="https://www.youtube.com/embed/zSBHHbRrjvM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <div class="media-cell media-cell--yt">
+      <iframe src="https://www.youtube.com/embed/zSBHHbRrjvM" title="Set no YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
+    <div class="embed-label">Reels · Instagram</div>
+    <figure class="media-figure">
+      <div class="media-cell media-cell--ig">
+        <iframe src="https://www.instagram.com/reel/DY42bIOB-gf/embed/" title="Aftermovie — Narnia in Trance" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
+      </div>
+      <figcaption><a href="https://www.instagram.com/reel/DY42bIOB-gf/" target="_blank" rel="noopener">Aftermovie — Narnia in Trance ↗</a></figcaption>
+    </figure>
+    <figure class="media-figure">
+      <div class="media-cell media-cell--ig">
+        <iframe src="https://www.instagram.com/reel/DbqcGaSBdXW/embed/" title="Fake drop" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
+      </div>
+      <figcaption><a href="https://www.instagram.com/reel/DbqcGaSBdXW/" target="_blank" rel="noopener">Fake drop ↗</a></figcaption>
+    </figure>
+    <figure class="media-figure">
+      <div class="media-cell media-cell--ig">
+        <iframe src="https://www.instagram.com/reel/C8FGgf8xddh/embed/" title="Reel" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
+      </div>
+      <figcaption><a href="https://www.instagram.com/reel/C8FGgf8xddh/" target="_blank" rel="noopener">Reel ↗</a></figcaption>
+    </figure>
   </div>
 
   <div style="text-align:center;margin-top:2rem">
@@ -617,7 +667,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;op
     <div class="footer-marquee-inner" aria-hidden="true">
       <span>Γνωρίστε τον εαυτό σας και θα γνωρίσετε ολόκληρο το σύμπαν και τους θεούς, γιατί αν αυτό που ψάχνετε δεν το βρείτε πρώτα μέσα σας, δεν θα το βρείτε πουθενά.</span>
       <span>·</span>
-      <span>Γνωρίστε τον εαυτό σας και θα γνωρίσετε ολόκληρο το σύμπαν και τους θεούς, γιατί αν αυτό que ψάχνετε δεν το βρείτε πρώτα μέσα σας, δεν θα το βρείτε πουθενά.</span>
+      <span>Γνωρίστε τον εαυτό σας και θα γνωρίσετε ολόκληρο το σύμπαν και τους θεούς, γιατί αν αυτό που ψάχνετε δεν το βρείτε πρώτα μέσα σας, δεν θα το βρείτε πουθενά.</span>
       <span>·</span>
     </div>
   </div>
@@ -633,30 +683,78 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
 // CAROUSEL — infinite loop
 (function(){
   const track = document.getElementById('carTrack');
-  if(!track) return;
+  const prevBtn = document.getElementById('carPrev');
+  const nextBtn = document.getElementById('carNext');
+  if(!track || !prevBtn || !nextBtn) return;
+
+  const EASE = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
+  const GAP = 12;
+  const AUTO_MS = 4000;
+
   const original = Array.from(track.querySelectorAll('.carousel-slide'));
+  const len = original.length;
+  if(!len) return;
+
+  // clona o conjunto inteiro uma vez: [0..len-1][0..len-1]
   original.forEach(s => track.appendChild(s.cloneNode(true)));
-  const all = track.querySelectorAll('.carousel-slide');
-  const vis = () => window.innerWidth < 768 ? 1 : 3;
-  const gap = 12;
+  const all = Array.from(track.querySelectorAll('.carousel-slide'));
+  // o stagger vertical segue o indice ORIGINAL, para os clones caírem no mesmo ritmo
+  all.forEach((el, i) => el.classList.toggle('stagger', i % len === 1));
+
   let idx = 0;
-  track.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
-  function slideW(){ return all[0].offsetWidth + gap; }
-  function goTo(n, instant){
+  let animating = false;
+  track.style.transition = EASE;
+
+  function slideW(){ return all[0].getBoundingClientRect().width + GAP; }
+  function place(n, instant){
     idx = n;
-    if(instant) track.style.transition = 'none';
-    else track.style.transition = 'transform .6s cubic-bezier(.25,.46,.45,.94)';
+    track.style.transition = instant ? 'none' : EASE;
     track.style.transform = `translateX(-${idx * slideW()}px)`;
+    if(instant){
+      void track.offsetWidth;            // força reflow para o salto não animar
+      track.style.transition = EASE;
+    }
   }
-  track.addEventListener('transitionend', () => {
-    if(idx >= original.length){ goTo(idx - original.length, true); }
-    else if(idx < 0){ goTo(idx + original.length, true); }
+  function next(){
+    if(animating) return;
+    animating = true;
+    place(idx + 1);
+  }
+  function prev(){
+    if(animating) return;
+    animating = true;
+    if(idx <= 0){
+      // salta silenciosamente para a zona de clones e volta animando: loop sem flash
+      place(len, true);
+      requestAnimationFrame(() => place(len - 1));
+    } else {
+      place(idx - 1);
+    }
+  }
+  track.addEventListener('transitionend', e => {
+    if(e.target !== track || e.propertyName !== 'transform') return;
+    animating = false;
+    if(idx >= len) place(idx - len, true);
   });
-  document.getElementById('carPrev').onclick = () => goTo(idx - 1);
-  document.getElementById('carNext').onclick = () => goTo(idx + 1);
-  let auto = setInterval(() => goTo(idx + 1), 4000);
-  track.addEventListener('mouseenter', () => clearInterval(auto));
-  track.addEventListener('mouseleave', () => { auto = setInterval(() => goTo(idx + 1), 4000); });
+
+  let auto = null;
+  const stopAuto = () => { clearInterval(auto); auto = null; };
+  const startAuto = () => { stopAuto(); auto = setInterval(next, AUTO_MS); };
+
+  nextBtn.addEventListener('click', () => { next(); startAuto(); });
+  prevBtn.addEventListener('click', () => { prev(); startAuto(); });
+  track.addEventListener('mouseenter', stopAuto);
+  track.addEventListener('mouseleave', startAuto);
+  document.addEventListener('visibilitychange', () => document.hidden ? stopAuto() : startAuto());
+
+  // ao redimensionar, a largura do slide muda: reposiciona sem animação
+  let rt = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(() => { animating = false; place(idx, true); }, 150);
+  });
+
+  startAuto();
 })();
 
 // FEEDBACK ROWS — drag to scroll
@@ -705,7 +803,7 @@ document.querySelectorAll('.fb-row').forEach(row => {
 });
 
 // REVEAL
-const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('v');}),{threshold:.1});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('v');obs.unobserve(x.target);}}),{threshold:.1});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
 // FLYERS MOSAIC (mobile) — circular ring, 2 featured, autoplay w/ pulsing arrow
